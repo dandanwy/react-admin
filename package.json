@@ -137,6 +137,9 @@
     ]
   },
   "devDependencies": {
+    "antd": "^3.26.9",
+    "less": "^3.11.0",
+    "less-loader": "^5.0.0",
     "react-router-dom": "^5.1.2"
   }
 }
