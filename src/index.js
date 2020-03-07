@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import { mainRoutes } from './routes/index'
+import App from './App'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter>
+    <Switch>
+        <Route path="/admin" render={routeProps => <App {...routeProps} />}></Route>
+      {mainRoutes.map(route => {
+        return <Route key={route.path} {...route}/>
+      })}
+      <Redirect to="/404"></Redirect>
+    </Switch>
+</BrowserRouter>, document.getElementById('root'));
