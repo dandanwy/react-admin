@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import { HashRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import { mainRoutes } from './routes/index'
 import App from './App'
+import '../public/css/reset.css'
 
-ReactDOM.render(<BrowserRouter>
+ReactDOM.render(<Router>
     <Switch>
         <Route path="/admin" render={routeProps => <App {...routeProps} />}></Route>
       {mainRoutes.map(route => {
@@ -12,4 +13,4 @@ ReactDOM.render(<BrowserRouter>
       })}
       <Redirect to="/404"></Redirect>
     </Switch>
-</BrowserRouter>, document.getElementById('root'));
+</Router>, document.getElementById('root'));
