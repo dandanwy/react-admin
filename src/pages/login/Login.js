@@ -1,4 +1,5 @@
 import React from 'react'
+import { setToken } from '../../utils/auth'
 import { Form, Icon, Input, Button, Checkbox, Card } from 'antd';
 import './login.less'
 
@@ -8,7 +9,9 @@ function Login(props) {
         e.preventDefault();
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+              console.log(111, values.username, setToken(values.username));
+            setToken(values.username);
+            props.history.push('/admin');
           }
         });
     };
