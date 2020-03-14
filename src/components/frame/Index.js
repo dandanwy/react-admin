@@ -4,6 +4,7 @@ import { Layout, Menu, Icon, Dropdown, Avatar, message } from 'antd';
 import { adminRoutes } from '../../routes/index'
 import { clearToken } from '../../utils/auth'
 import './frame.less'
+const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const routes = adminRoutes.filter(item => item.isShow);
 
@@ -36,33 +37,47 @@ function Index(props) {
                 </Dropdown>
             </Header>
         <Layout>
-            <Sider width={200} className="site-layout-background">
+            <Sider width={180} className="site-layout-background">
                 <Menu
                 mode="inline"
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 style={{ height: '100%', borderRight: 0 }}
                 >
-                    {routes.map(route => {
-                        return (
-                            <Menu.Item key={route.path} onClick={p => props.history.push(p.key)}>
-                                <Icon type={route.icon}></Icon>
+                {routes.map(route => {
+                    return (
+                        route.children ? <SubMenu key={route.path + 'SubMenu'} title={
+                            <span>
+                                <Icon type={route.icon} />
                                 {route.title}
-                            </Menu.Item>
-                        )
-                    })}
+                            </span>
+                        }>
+                            {route.children.map((item, index) => {
+                                return (
+                                    <Menu.Item key={item.path} onClick={p => {
+                                        props.history.push(p.key);
+                                    }}>
+                                        {item.title}
+                                    </Menu.Item>
+                                )
+                            })}
+                        </SubMenu> : <Menu.Item key={route.path} onClick={p => {
+                                        props.history.push(p.key);
+                                    }}>
+                                        <span>
+                                            <Icon type={route.icon} />
+                                            {route.title}
+                                        </span>
+                                    </Menu.Item>
+                    )
+                })}
                 </Menu>
             </Sider>
-            <Layout style={{ padding: '0 24px 24px' }}>
-                {/* <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb> */}
+            <Layout>
                 <Content
                     className="site-layout-background"
                     style={{
-                        padding: 24,
+                        padding: 10,
                         margin: 0,
                         minHeight: 280,
                     }}>
