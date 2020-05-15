@@ -123,20 +123,21 @@ module.exports = function(webpackEnv) {
       },
     ].filter(Boolean);
     if (preProcessor) {
-      loaders.push(
-        {
-          loader: require.resolve('resolve-url-loader'),
+      let loader = require.resolve(preProcessor)
+      if (preProcessor === "less-loader") {
+        loader = {
+          loader,
           options: {
-            sourceMap: isEnvProduction && shouldUseSourceMap,
-          },
-        },
-        {
-          loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true,
-          },
+            modifyVars: { //自定义主题
+              'primary-color': '#1DA57A',
+              'link-color': '#1DA57A',
+              'border-radius-base': '2px'
+            },
+            javascriptEnabled: true,
+          }
         }
-      );
+      }
+      loaders.push(loader);
     }
     return loaders;
   };

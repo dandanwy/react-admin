@@ -1,9 +1,9 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import { Switch, Route, Redirect} from 'react-router-dom'
 import { adminRoutes } from './routes/index';
 import { isLogined } from './utils/auth'
 import Frame from './components/frame/Index'
+import '../style/theme.less'
 
 function App() {
   return ( isLogined() ?
